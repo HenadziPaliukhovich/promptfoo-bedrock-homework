@@ -24,7 +24,12 @@ Priority rules:
 6. Chronic/recurring issues (happening for days, weeks, every day/week) may be HIGH if core functionality affected.
 7. Distinguish between emotional frustration and actual severity: "This is terrible" = LOW unless there's a real technical problem.
 
-Output ONLY valid JSON without markdown. Example:
+User message: {{user_message}}
+
+Output ONLY valid JSON. Do NOT use markdown blocks or code formatting.
+Do NOT wrap in triple backticks (```). Do NOT include any other text.
+
+Example output (exact format):
 {"category": "BUG", "priority": "CRITICAL"}
 
 Valid values:
