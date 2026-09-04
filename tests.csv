@@ -17,3 +17,24 @@ user_message,expected_category,expected_priority
 "Can I change my subscription plan?",QUESTION,LOW
 "The checkout button looks ugly",FEATURE,LOW
 "Export stopped working after the update",BUG,HIGH
+"Crash",BUG,HIGH
+"Broken login",BUG,CRITICAL
+"I'm a software engineer. When I POST to /api/users, I get a 500 with no error message.",BUG,HIGH
+"Dear support, I noticed the app crashed when I tried to upload a file. Can you help?",BUG,HIGH
+"This is so frustrating. Nothing works anymore.",BUG,HIGH
+"No dark mode? Really?",FEATURE,LOW
+"Would it be possible to add multi-language support?",FEATURE,LOW
+"I was billed $50 for something I didn't buy. This is not ok.",BILLING,HIGH
+"Hi, I'm having trouble with the api. The documentation says X but the system does Y.",QUESTION,LOW
+"Dark mode plz!!!",FEATURE,LOW
+"teh app wont open after update",BUG,CRITICAL
+"Why is there no refund policy?",BILLING,LOW
+"The system is down, I can't access anything, production is blocked",BUG,CRITICAL
+"I politely request a feature request for scheduling",FEATURE,LOW
+"When will you fix the database connection issue?",BUG,HIGH
+"..." ,QUESTION,LOW
+"I have a problem",QUESTION,LOW
+"API rate limit exceeded when calling endpoint",BUG,HIGH
+"Facturación incorrecta en mi cuenta",BILLING,HIGH
+"Can I upgrade to premium?",QUESTION,LOW
+"The UI is very slow and unresponsive",BUG,HIGH
