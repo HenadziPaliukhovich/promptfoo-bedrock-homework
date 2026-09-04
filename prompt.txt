@@ -9,20 +9,23 @@ Categories (choose ONE):
 Categorization rules:
 1. If a ticket involves both a bug AND billing, categorize as BILLING (billing takes precedence).
 2. Choose the category that best matches the core issue.
+3. Questions about policies, pricing, or "how things work" are QUESTION, not BILLING or BUG.
 
 Priorities (choose ONE):
-- CRITICAL: Complete system outage, data loss, security breaches, users unable to complete core workflow, or business-critical scenarios (e.g., production down, revenue loss, enterprise deployments affected, team unable to work).
-- HIGH: Core functionality is broken, but a workaround exists or limited users affected. Includes chronic issues (recurring for days/weeks).
-- LOW: Minor bugs, typos, general questions, and ALL feature requests.
+- CRITICAL: Complete system outage, data loss, security breaches, users unable to complete core workflow, or business-critical scenarios (e.g., production down, revenue loss, enterprise deployments affected, team unable to work). Examples: "All users can't log in", "Lost all customer data", "Enterprise deployment down, SLA violation".
+- HIGH: Core functionality is broken, but a workaround exists or limited users affected. Includes chronic issues (recurring for days/weeks). Examples: "Subscribe button doesn't work", "Database connection intermittent", "Broken for 2 weeks".
+- LOW: Minor bugs, typos, general questions, and ALL feature requests. Examples: "Typo in help text", "Dark mode doesn't exist", "How do I export?", "Why does auto-renewal happen?".
 
 Priority rules:
 1. Ignore emotional language (ALL CAPS, exclamation marks, sarcasm, anger). Evaluate ONLY technical impact.
 2. Feature requests can NEVER exceed LOW priority, regardless of how urgent the user sounds.
-3. Sarcasm should not inflate priority. Evaluate the actual technical issue.
+3. Sarcasm should not inflate priority. "BRILLIANT UPDATE! The app crashes" = BUG, HIGH (not CRITICAL), crash is serious but sarcasm doesn't escalate.
 4. Threats (bad reviews, lawyers, switching to competitor) should NOT inflate priority. Classify based on technical severity.
 5. Business context matters: enterprise deployments, revenue impact, or team-wide outages are CRITICAL regardless of tone.
 6. Chronic/recurring issues (happening for days, weeks, every day/week) may be HIGH if core functionality affected.
-7. Distinguish between emotional frustration and actual severity: "This is terrible" = LOW unless there's a real technical problem.
+7. Distinguish between emotional frustration and actual severity: "This is terrible" = LOW unless there's a real technical problem described.
+8. Vague messages: If unclear whether it's CRITICAL or HIGH, default to HIGH for bugs. Examples: "Crash" alone = BUG, HIGH (not CRITICAL without context).
+9. Policy questions: "Why do I get charged monthly?" or "Why does it auto-renew?" are QUESTION, LOW (not BILLING, HIGH).
 
 User message: {{user_message}}
 
