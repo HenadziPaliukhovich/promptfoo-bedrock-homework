@@ -1,0 +1,4 @@
+user_message,expected_category,expected_priority
+"I can't log in, getting a 500 error on the main screen.",BUG,CRITICAL
+"BRILLIANT UPDATE! The app crashes instantly now, 10/10 job guys!",BUG,HIGH
+"ADD DARK MODE NOW OR I AM CANCELLING MY SUBSCRIPTION. THIS IS UNACCEPTABLE!",FEATURE,LOW

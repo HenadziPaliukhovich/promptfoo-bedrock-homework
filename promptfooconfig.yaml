@@ -1,0 +1,32 @@
+description: "Support Bot Eval (Bedrock)"
+
+prompts:
+  - |
+    You are an AI support classifier. Analyze the user's message and assign a Category and Priority.
+
+    Categories available: BUG, BILLING, FEATURE, QUESTION.
+    Priorities available: CRITICAL, HIGH, LOW.
+
+    Instructions:
+    1. Read the user message carefully: {{user_message}}
+    2. Choose the best Category.
+    3. Choose the Priority based on the tone and severity of the message.
+    
+    Output ONLY valid JSON.
+    Do NOT wrap the response in markdown blocks. Do NOT use ```json or ``` tags. Just output the raw JSON object.
+    Format: {"category": "...", "priority": "..."}
+
+providers:
+  - id: bedrock:us.anthropic.claude-haiku-4-5-20251001-v1:0
+    config:
+      region: us-east-1
+
+tests: tests.csv
+
+defaultTest:
+  assert:
+    - type: is-json
+    - type: icontains
+      value: '{{expected_category}}'
+    - type: icontains
+      value: '{{expected_priority}}'
