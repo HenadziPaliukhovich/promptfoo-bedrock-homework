@@ -2,3 +2,9 @@ user_message,expected_category,expected_priority
 "I can't log in, getting a 500 error on the main screen.",BUG,CRITICAL
 "BRILLIANT UPDATE! The app crashes instantly now, 10/10 job guys!",BUG,HIGH
 "ADD DARK MODE NOW OR I AM CANCELLING MY SUBSCRIPTION. THIS IS UNACCEPTABLE!",FEATURE,LOW
+"Payment failed - card declined. Also the button is broken.",BILLING,HIGH
+"How do I export my data?",QUESTION,LOW
+"I lost all my files after the update!",BUG,CRITICAL
+"WANT DARK MODE!!! THIS IS A DEALBREAKER!!!",FEATURE,LOW
+"Subscribe button doesn't work",BUG,HIGH
+"How much does the premium plan cost?",QUESTION,LOW
