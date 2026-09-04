@@ -13,7 +13,7 @@ tests: tests.csv
 defaultTest:
   assert:
     - type: is-json
-    - type: icontains
-      value: '{{expected_category}}'
-    - type: icontains
-      value: '{{expected_priority}}'
+    - type: regex
+      value: '"category"\s*:\s*"{{expected_category}}"'
+    - type: regex
+      value: '"priority"\s*:\s*"{{expected_priority}}"'

@@ -5,6 +5,15 @@ user_message,expected_category,expected_priority
 "Payment failed - card declined. Also the button is broken.",BILLING,HIGH
 "How do I export my data?",QUESTION,LOW
 "I lost all my files after the update!",BUG,CRITICAL
-"WANT DARK MODE!!! THIS IS A DEALBREAKER!!!",FEATURE,LOW
 "Subscribe button doesn't work",BUG,HIGH
 "How much does the premium plan cost?",QUESTION,LOW
+"My credit card was charged twice this month",BILLING,HIGH
+"Charged for a service I never used",BILLING,CRITICAL
+"The billing page is showing the wrong amount",BILLING,HIGH
+"Why is my subscription auto-renewing?",BILLING,LOW
+"Can't update my payment method",BILLING,HIGH
+"The app won't start on my phone",BUG,CRITICAL
+"There's a typo in the settings menu",BUG,LOW
+"Can I change my subscription plan?",QUESTION,LOW
+"The checkout button looks ugly",FEATURE,LOW
+"Export stopped working after the update",BUG,HIGH
