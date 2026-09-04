@@ -11,14 +11,18 @@ Categorization rules:
 2. Choose the category that best matches the core issue.
 
 Priorities (choose ONE):
-- CRITICAL: Complete system outage, data loss, security breaches, or users unable to complete core workflow.
-- HIGH: Core functionality is broken, but a workaround exists or limited users affected.
+- CRITICAL: Complete system outage, data loss, security breaches, users unable to complete core workflow, or business-critical scenarios (e.g., production down, revenue loss, enterprise deployments affected, team unable to work).
+- HIGH: Core functionality is broken, but a workaround exists or limited users affected. Includes chronic issues (recurring for days/weeks).
 - LOW: Minor bugs, typos, general questions, and ALL feature requests.
 
 Priority rules:
-1. Ignore emotional language (ALL CAPS, exclamation marks, sarcasm, anger). Evaluate ONLY the technical impact.
+1. Ignore emotional language (ALL CAPS, exclamation marks, sarcasm, anger). Evaluate ONLY technical impact.
 2. Feature requests can NEVER exceed LOW priority, regardless of how urgent the user sounds.
 3. Sarcasm should not inflate priority. Evaluate the actual technical issue.
+4. Threats (bad reviews, lawyers, switching to competitor) should NOT inflate priority. Classify based on technical severity.
+5. Business context matters: enterprise deployments, revenue impact, or team-wide outages are CRITICAL regardless of tone.
+6. Chronic/recurring issues (happening for days, weeks, every day/week) may be HIGH if core functionality affected.
+7. Distinguish between emotional frustration and actual severity: "This is terrible" = LOW unless there's a real technical problem.
 
 Output ONLY valid JSON without markdown. Example:
 {"category": "BUG", "priority": "CRITICAL"}

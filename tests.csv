@@ -38,3 +38,13 @@ user_message,expected_category,expected_priority
 "Facturación incorrecta en mi cuenta",BILLING,HIGH
 "Can I upgrade to premium?",QUESTION,LOW
 "The UI is very slow and unresponsive",BUG,HIGH
+"I'll leave a bad review if you don't fix this",BUG,HIGH
+"The button does X but it should do Y",BUG,HIGH
+"My entire team can't work because the sync feature is broken",BUG,CRITICAL
+"Enterprise deployment is down, SLA violation in 30 minutes",BUG,CRITICAL
+"This has been broken for 3 weeks now, still no fix",BUG,HIGH
+"I'm contacting my lawyer about this billing issue",BILLING,HIGH
+"Your competitor's app doesn't have this problem",FEATURE,LOW
+"We're losing $5000/day because of this bug",BUG,CRITICAL
+"The issue happens intermittently - about 30% of the time",BUG,HIGH
+"Everything is broken! I'm never using this again!!!",BUG,HIGH
