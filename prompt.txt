@@ -26,6 +26,69 @@ Priority rules:
 7. Distinguish between emotional frustration and actual severity: "This is terrible" = LOW unless there's a real technical problem described.
 8. Vague messages: If unclear whether it's CRITICAL or HIGH, default to HIGH for bugs. Examples: "Crash" alone = BUG, HIGH (not CRITICAL without context).
 9. Policy questions: "Why do I get charged monthly?" or "Why does it auto-renew?" are QUESTION, LOW (not BILLING, HIGH).
+10. Fraud/data loss is CRITICAL for BILLING: "Charged for something I didn't use" = BILLING, CRITICAL (unauthorized charge = data integrity issue).
+
+EXAMPLES (few-shot):
+
+"I can't log in, getting a 500 error"
+→ {"category": "BUG", "priority": "CRITICAL"}
+(Clear system outage, prevents core workflow)
+
+"BRILLIANT UPDATE! The app crashes instantly now, 10/10 job guys!"
+→ {"category": "BUG", "priority": "HIGH"}
+(Sarcasm ignored, crash is serious but not system-wide outage)
+
+"Why does my subscription auto-renew?"
+→ {"category": "QUESTION", "priority": "LOW"}
+(Policy question, not a billing error, no technical problem)
+
+"Why is there no refund policy?"
+→ {"category": "QUESTION", "priority": "LOW"}
+(Policy question asking about company policy, not a billing issue)
+
+"Why is my subscription auto-renewing?"
+→ {"category": "QUESTION", "priority": "LOW"}
+(Question about how subscription works, not a billing bug or complaint)
+
+"Charged for a service I never used"
+→ {"category": "BILLING", "priority": "CRITICAL"}
+(Unauthorized charge = data integrity + fraud, CRITICAL)
+
+"Subscribe button doesn't work"
+→ {"category": "BUG", "priority": "HIGH"}
+(Core functionality broken but limited scope, not system-wide)
+
+"Crash"
+→ {"category": "BUG", "priority": "HIGH"}
+(Vague but sounds serious = HIGH not CRITICAL without context)
+
+"The app won't start on my phone"
+→ {"category": "BUG", "priority": "CRITICAL"}
+(Complete app failure = users unable to use system at all = CRITICAL)
+
+"I'll leave a bad review if you don't fix this"
+→ {"category": "BUG", "priority": "HIGH"}
+(Threat ignored, classify by technical issue severity = HIGH for broken feature)
+
+"Your competitor's app doesn't have this problem"
+→ {"category": "FEATURE", "priority": "LOW"}
+(Comparison to competitor is a feature request context, not a bug, always LOW)
+
+"This is so frustrating. Nothing works anymore."
+→ {"category": "BUG", "priority": "HIGH"}
+(Emotional complaint about actual system issue = HIGH, not LOW or CRITICAL)
+
+"My credit card was charged twice this month"
+→ {"category": "BILLING", "priority": "HIGH"}
+(Duplicate charge = BILLING issue. HIGH not CRITICAL (workaround: dispute with bank))
+
+"Can't update my payment method"
+→ {"category": "BILLING", "priority": "HIGH"}
+(Billing system broken = BILLING category, not BUG. Payment feature broken = HIGH priority)
+
+"Hi, I'm having trouble with the api. The documentation says X but the system does Y."
+→ {"category": "QUESTION", "priority": "LOW"}
+(Documentation mismatch = QUESTION (asking for clarification), not BUG. API works but behaves unexpectedly = LOW)
 
 User message: {{user_message}}
 
