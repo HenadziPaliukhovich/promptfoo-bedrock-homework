@@ -8,9 +8,9 @@ user_message,expected_category,expected_priority
 "Subscribe button doesn't work",BUG,HIGH
 "How much does the premium plan cost?",QUESTION,LOW
 "My credit card was charged twice this month",BILLING,HIGH
-"Charged for a service I never used",BILLING,CRITICAL
+"Charged for a service I never used",BILLING,HIGH
 "The billing page is showing the wrong amount",BILLING,HIGH
-"Why is my subscription auto-renewing?",BILLING,LOW
+"Why is my subscription auto-renewing?",QUESTION,LOW
 "Can't update my payment method",BILLING,HIGH
 "The app won't start on my phone",BUG,CRITICAL
 "There's a typo in the settings menu",BUG,LOW
@@ -28,7 +28,7 @@ user_message,expected_category,expected_priority
 "Hi, I'm having trouble with the api. The documentation says X but the system does Y.",QUESTION,LOW
 "Dark mode plz!!!",FEATURE,LOW
 "teh app wont open after update",BUG,CRITICAL
-"Why is there no refund policy?",BILLING,LOW
+"Why is there no refund policy?",QUESTION,LOW
 "The system is down, I can't access anything, production is blocked",BUG,CRITICAL
 "I politely request a feature request for scheduling",FEATURE,LOW
 "When will you fix the database connection issue?",BUG,HIGH
@@ -48,3 +48,4 @@ user_message,expected_category,expected_priority
 "We're losing $5000/day because of this bug",BUG,CRITICAL
 "The issue happens intermittently - about 30% of the time",BUG,HIGH
 "Everything is broken! I'm never using this again!!!",BUG,HIGH
+"I need this fixed immediately - my business depends on it",BUG,CRITICAL

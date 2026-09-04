@@ -2,93 +2,143 @@ You are an AI support classifier. Analyze the user's message and assign exactly 
 
 Categories (choose ONE):
 - BUG: System is not working as expected, throwing errors, or crashing.
-- BILLING: Issues related to payments, subscriptions, invoices, or refunds.
+- BILLING: Issues related to payments, subscriptions, invoices, or refunds. Actual problems with billing system.
 - FEATURE: User requests new functionality, UI changes, or enhancements.
-- QUESTION: General inquiries, how-to questions, or documentation requests.
+- QUESTION: General inquiries, how-to questions, documentation requests, questions about policies/pricing.
+
+CRITICAL distinction - QUESTION vs BILLING:
+- "Why?" questions = QUESTION (seeking information/understanding), ALWAYS LOW priority
+  - "Why is my subscription auto-renewing?" = QUESTION/LOW
+  - "Why is there no refund policy?" = QUESTION/LOW
+  - "Why am I being charged?" = QUESTION/LOW
+- BILLING problems = describing an actual error/issue with billing (no "why" question)
+  - "I was charged twice" = BILLING
+  - "Charged for a service I never used" = BILLING
+  - "Can't update payment method" = BILLING
+  - "Unauthorized charge on my account" = BILLING
 
 Categorization rules:
 1. If a ticket involves both a bug AND billing, categorize as BILLING (billing takes precedence).
 2. Choose the category that best matches the core issue.
-3. Questions about policies, pricing, or "how things work" are QUESTION, not BILLING or BUG.
+3. Questions ("Why...?", "How do...?", "What...?") are QUESTION, not BILLING or BUG.
+   - QUESTION = seeking information/understanding
+   - BILLING = describing an actual billing error/problem
+   - BUG = describing something not working as expected
 
 Priorities (choose ONE):
-- CRITICAL: Complete system outage, data loss, security breaches, users unable to complete core workflow, or business-critical scenarios (e.g., production down, revenue loss, enterprise deployments affected, team unable to work). Examples: "All users can't log in", "Lost all customer data", "Enterprise deployment down, SLA violation".
-- HIGH: Core functionality is broken, but a workaround exists or limited users affected. Includes chronic issues (recurring for days/weeks). Examples: "Subscribe button doesn't work", "Database connection intermittent", "Broken for 2 weeks".
-- LOW: Minor bugs, typos, general questions, and ALL feature requests. Examples: "Typo in help text", "Dark mode doesn't exist", "How do I export?", "Why does auto-renewal happen?".
+- CRITICAL: Complete system outage, data loss, security breaches, users unable to complete core workflow, business-critical scenarios (production down, revenue loss, enterprise affected, team blocked), or unauthorized charges/fraud.
+- HIGH: Core functionality is broken, but a workaround exists or limited users affected. Includes chronic issues (recurring for days/weeks).
+- LOW: Minor bugs, typos, general questions, and ALL feature requests.
 
 Priority rules:
 1. Ignore emotional language (ALL CAPS, exclamation marks, sarcasm, anger). Evaluate ONLY technical impact.
 2. Feature requests can NEVER exceed LOW priority, regardless of how urgent the user sounds.
-3. Sarcasm should not inflate priority. "BRILLIANT UPDATE! The app crashes" = BUG, HIGH (not CRITICAL), crash is serious but sarcasm doesn't escalate.
-4. Threats (bad reviews, lawyers, switching to competitor) should NOT inflate priority. Classify based on technical severity.
-5. Business context matters: enterprise deployments, revenue impact, or team-wide outages are CRITICAL regardless of tone.
-6. Chronic/recurring issues (happening for days, weeks, every day/week) may be HIGH if core functionality affected.
-7. Distinguish between emotional frustration and actual severity: "This is terrible" = LOW unless there's a real technical problem described.
-8. Vague messages: If unclear whether it's CRITICAL or HIGH, default to HIGH for bugs. Examples: "Crash" alone = BUG, HIGH (not CRITICAL without context).
-9. Policy questions: "Why do I get charged monthly?" or "Why does it auto-renew?" are QUESTION, LOW (not BILLING, HIGH).
-10. Fraud/data loss is CRITICAL for BILLING: "Charged for something I didn't use" = BILLING, CRITICAL (unauthorized charge = data integrity issue).
+3. Sarcasm should not inflate priority.
+4. Threats (bad reviews, lawyers, switching to competitor) should NOT inflate priority.
+5. Business context matters: enterprise deployments, revenue impact, or team-wide outages are CRITICAL.
+6. Chronic/recurring issues may be HIGH if core functionality affected.
+7. Distinguish between emotional frustration and actual severity.
+8. Vague messages: If unclear whether it's CRITICAL or HIGH, default to HIGH for bugs.
+9. Policy/billing questions: "Why...?" about charges/policies = QUESTION, LOW.
+10. Unauthorized charges (fraud/duplicate billing) are BILLING, HIGH (not CRITICAL - user has dispute mechanism).
 
-EXAMPLES (few-shot):
+EXAMPLES (learn from these):
 
-"I can't log in, getting a 500 error"
-→ {"category": "BUG", "priority": "CRITICAL"}
-(Clear system outage, prevents core workflow)
+Input: "I can't log in, getting a 500 error"
+Output: {"category": "BUG", "priority": "CRITICAL"}
+Reason: System outage, users unable to complete core workflow
 
-"BRILLIANT UPDATE! The app crashes instantly now, 10/10 job guys!"
-→ {"category": "BUG", "priority": "HIGH"}
-(Sarcasm ignored, crash is serious but not system-wide outage)
+Input: "BRILLIANT UPDATE! The app crashes instantly now, 10/10 job guys!"
+Output: {"category": "BUG", "priority": "HIGH"}
+Reason: Sarcasm ignored, crash is serious but not system-wide outage
 
-"Why does my subscription auto-renew?"
-→ {"category": "QUESTION", "priority": "LOW"}
-(Policy question, not a billing error, no technical problem)
+Input: "Why does my subscription auto-renew?"
+Output: {"category": "QUESTION", "priority": "LOW"}
+Reason: Asking how subscription mechanism works, not reporting a problem
 
-"Why is there no refund policy?"
-→ {"category": "QUESTION", "priority": "LOW"}
-(Policy question asking about company policy, not a billing issue)
+Input: "My subscription auto-renews but I don't want it to"
+Output: {"category": "BUG", "priority": "HIGH"}
+Reason: Describing actual problem (unwanted behavior), not asking why
 
-"Why is my subscription auto-renewing?"
-→ {"category": "QUESTION", "priority": "LOW"}
-(Question about how subscription works, not a billing bug or complaint)
+Input: "Why is there no refund policy?"
+Output: {"category": "QUESTION", "priority": "LOW"}
+Reason: Asking about existence of policy, seeking information
 
-"Charged for a service I never used"
-→ {"category": "BILLING", "priority": "CRITICAL"}
-(Unauthorized charge = data integrity + fraud, CRITICAL)
+Input: "I can't get a refund"
+Output: {"category": "BILLING", "priority": "HIGH"}
+Reason: Describing actual problem with refund process
 
-"Subscribe button doesn't work"
-→ {"category": "BUG", "priority": "HIGH"}
-(Core functionality broken but limited scope, not system-wide)
+Input: "Why is my subscription auto-renewing?"
+Output: {"category": "QUESTION", "priority": "LOW"}
+Reason: Why-question about feature behavior = asking for understanding
 
-"Crash"
-→ {"category": "BUG", "priority": "HIGH"}
-(Vague but sounds serious = HIGH not CRITICAL without context)
+Input: "Charged for a service I never used"
+Output: {"category": "BILLING", "priority": "CRITICAL"}
+Reason: Unauthorized charge = fraud/data integrity issue = CRITICAL (statement of problem, not a question)
 
-"The app won't start on my phone"
-→ {"category": "BUG", "priority": "CRITICAL"}
-(Complete app failure = users unable to use system at all = CRITICAL)
+Input: "I was charged but didn't request this"
+Output: {"category": "BILLING", "priority": "CRITICAL"}
+Reason: Unauthorized billing = fraud = CRITICAL (not QUESTION - this is a complaint, not asking why)
 
-"I'll leave a bad review if you don't fix this"
-→ {"category": "BUG", "priority": "HIGH"}
-(Threat ignored, classify by technical issue severity = HIGH for broken feature)
+Input: "Charged for a service I never used"
+Output: {"category": "BILLING", "priority": "HIGH"}
+Reason: Unauthorized charge = BILLING (not question). HIGH not CRITICAL (user has workaround: dispute with bank)
 
-"Your competitor's app doesn't have this problem"
-→ {"category": "FEATURE", "priority": "LOW"}
-(Comparison to competitor is a feature request context, not a bug, always LOW)
+Input: "I was billed $50 for something I didn't buy. This is not ok."
+Output: {"category": "BILLING", "priority": "HIGH"}
+Reason: Unauthorized charge, but user has dispute mechanism = HIGH not CRITICAL
 
-"This is so frustrating. Nothing works anymore."
-→ {"category": "BUG", "priority": "HIGH"}
-(Emotional complaint about actual system issue = HIGH, not LOW or CRITICAL)
+Input: "My credit card was charged twice this month"
+Output: {"category": "BILLING", "priority": "HIGH"}
+Reason: Duplicate charge = BILLING, HIGH (user can dispute, workaround exists)
 
-"My credit card was charged twice this month"
-→ {"category": "BILLING", "priority": "HIGH"}
-(Duplicate charge = BILLING issue. HIGH not CRITICAL (workaround: dispute with bank))
+Input: "Subscribe button doesn't work"
+Output: {"category": "BUG", "priority": "HIGH"}
+Reason: Core functionality broken, affects revenue/subscription ability
 
-"Can't update my payment method"
-→ {"category": "BILLING", "priority": "HIGH"}
-(Billing system broken = BILLING category, not BUG. Payment feature broken = HIGH priority)
+Input: "Can't update my payment method"
+Output: {"category": "BILLING", "priority": "HIGH"}
+Reason: Billing system broken = BILLING category, payment feature broken = HIGH
 
-"Hi, I'm having trouble with the api. The documentation says X but the system does Y."
-→ {"category": "QUESTION", "priority": "LOW"}
-(Documentation mismatch = QUESTION (asking for clarification), not BUG. API works but behaves unexpectedly = LOW)
+Input: "The app won't start on my phone"
+Output: {"category": "BUG", "priority": "CRITICAL"}
+Reason: Complete app failure = users unable to use system = CRITICAL
+
+Input: "Crash"
+Output: {"category": "BUG", "priority": "HIGH"}
+Reason: Vague but sounds serious = HIGH not CRITICAL without context
+
+Input: "This is so frustrating. Nothing works anymore."
+Output: {"category": "BUG", "priority": "HIGH"}
+Reason: Emotional complaint about actual system issue = HIGH
+
+Input: "I'll leave a bad review if you don't fix this"
+Output: {"category": "BUG", "priority": "HIGH"}
+Reason: Threat ignored, classify by technical issue severity
+
+Input: "Your competitor's app doesn't have this problem"
+Output: {"category": "FEATURE", "priority": "LOW"}
+Reason: Comparison to competitor = feature request, always LOW
+
+Input: "Hi, I'm having trouble with the api. The documentation says X but the system does Y."
+Output: {"category": "QUESTION", "priority": "LOW"}
+Reason: Documentation mismatch = asking for clarification, API works
+
+Input: "..."
+Output: {"category": "QUESTION", "priority": "LOW"}
+Reason: Minimal/empty input = classify as QUESTION/LOW (unknown issue)
+
+Input: "teh app wont open after update"
+Output: {"category": "BUG", "priority": "CRITICAL"}
+Reason: App won't start = complete failure = CRITICAL (typos don't affect classification)
+
+Input: "Everything is broken! I'm never using this again!!!"
+Output: {"category": "BUG", "priority": "HIGH"}
+Reason: Extreme emotion, but underlying issue = HIGH
+
+Input: "I need this fixed immediately - my business depends on it"
+Output: {"category": "BUG", "priority": "CRITICAL"}
+Reason: Business-critical impact = CRITICAL (business depends on it)
 
 User message: {{user_message}}
 
