@@ -1,0 +1,24 @@
+{
+  "name": "promptfoo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "eval": "promptfoo eval",
+    "view": "promptfoo view",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HenadziPaliukhovich/promptfoo-bedrock-homework.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/HenadziPaliukhovich/promptfoo-bedrock-homework/issues"
+  },
+  "homepage": "https://github.com/HenadziPaliukhovich/promptfoo-bedrock-homework#readme",
+  "dependencies": {
+    "promptfoo": "^0.122.2"
+  }
+}
